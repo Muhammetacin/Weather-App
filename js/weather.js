@@ -17,6 +17,8 @@ async function getCity(cityName) {
         return;
     }
 
+    console.log(response);
+
     const properties = [
         response.name, 
         response.main.temp, 
@@ -44,31 +46,51 @@ async function getCity(cityName) {
 
 }
 
+async function getCity5Days(cityName) {
+    const apiString5Days = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&cnt=5&appid=" + APIkey;
+    const response5Days = await fetch(apiString5Days).then(response => response.json());
+
+    const firstCard = cityProperties[0].children;
+    cityProperties[0].parentElement.children[0].textContent = response5Days.city.name;
+    firstCard[0].textContent = "Temperature Day 1: " + response5Days.list[0].main.temp + " °C";
+    firstCard[1].textContent = "Temperature Day 2: " + response5Days.list[1].main.temp + " °C";
+    firstCard[2].textContent = "Temperature Day 3: " + response5Days.list[2].main.temp + " °C";
+    firstCard[3].textContent = "Temperature Day 4: " + response5Days.list[3].main.temp + " °C";
+    firstCard[4].textContent = "Temperature Day 5: " + response5Days.list[4].main.temp + " °C";
+
+    console.log(response5Days);
+    console.log("City name: " + response5Days.city.name);
+    console.log("Temperature Day 1: " + response5Days.list[0].main.temp);
+    console.log("Temperature Day 2: " + response5Days.list[1].main.temp);
+    console.log("Temperature Day 3: " + response5Days.list[2].main.temp);
+    console.log("Temperature Day 4: " + response5Days.list[3].main.temp);
+    console.log("Temperature Day 5: " + response5Days.list[4].main.temp);
+}
+
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 function clearCityProperties() {
-    // cityProperties[0].parentElement.children[0].innerHTML = "Temperature";
     cityProperties[0].children[0].innerHTML = "Temperature";
     cityProperties[0].children[1].innerHTML = "Feels like";
     cityProperties[0].children[2].innerHTML = "Temp_min";
     cityProperties[0].children[3].innerHTML = "Temp_max";
     cityProperties[0].children[4].innerHTML = "Pressure";
     cityProperties[0].children[5].innerHTML = "Humidity";
-
-    // for(let property = 0; property < cityProperties.length; property++) {
-    //         cityProperties[0].children[property].innerHTML = "";
-    // }
 }
 
+
+
+// Events
 cityNameInput.addEventListener('keyup', (event) => {
     if(event.key == "Enter") {
         cityNameInput.value = capitalizeFirstLetter(cityNameInput.value);
-        getCity(cityNameInput.value);
+        getCity5Days(cityNameInput.value);
     }
 });
+
 submitBtn.addEventListener('click', () => {
     cityNameInput.value = capitalizeFirstLetter(cityNameInput.value);
-    getCity(cityNameInput.value);
+    getCity5Days(cityNameInput.value);
 });
