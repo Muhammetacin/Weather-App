@@ -5,20 +5,33 @@
           box-sizing: border-box;
 }
 
-#inputArea h1 {
-  font-size: 3rem;
+@media screen and (min-width: 0px) {
+  #inputArea h1 {
+    font-size: 2rem;
+  }
+  #inputArea input {
+    margin: 2rem auto 0.5rem;
+    font-size: 1.5rem;
+    padding: 0.25rem 1rem;
+    font-style: italic;
+    border: none;
+    width: 75vw;
+  }
+  #inputArea input:focus {
+    outline: none;
+    border-bottom: 2px solid;
+  }
 }
 
-#inputArea input {
-  margin-top: 1rem;
-  font-size: 2rem;
-  padding: 0.25rem 1rem;
-  font-style: italic;
-  border: none;
-}
-
-#inputArea input:focus {
-  outline: none;
-  border-bottom: 2px solid;
+@media screen and (min-width: 576px) {
+  #inputArea h1 {
+    font-size: 3rem;
+  }
+  #inputArea input {
+    margin-top: 3rem;
+    font-size: 2rem;
+    padding: 0.25rem 1rem;
+    width: 50vw;
+  }
 }
 /*# sourceMappingURL=weather.css.map */
