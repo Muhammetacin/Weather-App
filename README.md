@@ -24,6 +24,10 @@ Enough is enough, you decide to build a small web application for them so that y
 #### Must-have features
 
 - In the home page the user can enter the city of his/her choice (think of the right HTML elements here)
+  - Add input field for user to type city name and grab its value in js
+  - Show all cities that match in a list
+  - Add an eventlistener 'change' so with every letter typed the list of cities gets updated
+  - If there's no match show a message 'no cities found'
 - On clicking the SUBMIT button or pressing ENTER the application will display the weather for the next 5 days
 - The application must be responsive and mobile friendly
 

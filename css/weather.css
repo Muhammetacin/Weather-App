@@ -4,4 +4,21 @@
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
+
+#inputArea h1 {
+  font-size: 3rem;
+}
+
+#inputArea input {
+  margin-top: 1rem;
+  font-size: 2rem;
+  padding: 0.25rem 1rem;
+  font-style: italic;
+  border: none;
+}
+
+#inputArea input:focus {
+  outline: none;
+  border-bottom: 2px solid;
+}
 /*# sourceMappingURL=weather.css.map */
