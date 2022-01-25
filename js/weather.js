@@ -73,22 +73,20 @@ submitBtn.addEventListener('click', () => {
 
 
 
-const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const dayNamesOfWeek = document.getElementById('daysOfWeek');
 
 function getDayAndSetAllDaysOfWeek(today) {
-    // console.log("Today is", daysOfWeek[today.getDay()]);
+    let todayNr = today.getDay() + 2;
+    let daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+    while(todayNr != 0) {
+        let day = daysOfWeek.shift();
+        daysOfWeek.push(day);
+        todayNr--;
+    }
 
     for(let i = 0; i < dayNamesOfWeek.children.length; i++) {
-        console.log(dayNamesOfWeek.children.length);
-        console.log((i + today.getDay() + 1) );
-        if((i + today.getDay() + 1) >= daysOfWeek.length) {
-            dayNamesOfWeek.children[i].children[0].innerHTML = daysOfWeek[0];
-            console.log(dayNamesOfWeek.children[i].children[0].innerHTML = daysOfWeek[0]);
-        } 
-        else {
-            dayNamesOfWeek.children[i].children[0].innerHTML = daysOfWeek[i + 1 + today.getDay() + 1];
-        }
+        dayNamesOfWeek.children[i].children[0].innerHTML = daysOfWeek[i + 1];
     }
 }
 
