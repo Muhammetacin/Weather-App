@@ -90,6 +90,14 @@ function setSkyStatusAllDays(skyData) {
 
 // Events
 cityNameInput.addEventListener('keyup', (event) => {
+    cityProperties.children[1].innerHTML = "-";
+    cityProperties.children[2].innerHTML = "-";
+    for(let j = 1; j < 3; j++) {
+        for(let i = 0; i < dayNamesOfWeek.children.length; i++) {
+            dayNamesOfWeek.children[i].children[j].innerHTML = "-";
+        }
+    }
+
     if(event.key == "Enter") {
         cityNameInput.value = capitalizeFirstLetter(cityNameInput.value);
         getCity5Days(cityNameInput.value);
