@@ -1,4 +1,5 @@
 import { APIkey } from './config.js';
+// import * as Chart from './chart.js';
 
 const cityNameInput = document.getElementById('inputField');
 const submitBtn = document.getElementById('submit');
@@ -49,6 +50,12 @@ async function getCity5Days(cityName) {
 
     // Show sky description for all days
     setSkyStatusAllDays(skyData);
+
+    const temperatures = setTempAllDays(responseTempValues);
+    const dayLabels = getDayAndSetAllDaysOfWeek(todaysDate);
+    dayLabels.pop();
+
+    drawGraph(dayLabels, temperatures);
 }
 
 function capitalizeFirstLetter(string) {
@@ -68,14 +75,24 @@ function getDayAndSetAllDaysOfWeek(today) {
     for(let i = 0; i < dayNamesOfWeek.children.length; i++) {
         dayNamesOfWeek.children[i].children[0].innerHTML = daysOfWeek[i + 1];
     }
+
+    return daysOfWeek;
 }
 
 function setTempAllDays(tempData) {
-    cityProperties.children[2].innerHTML = Math.round(tempData[1]) + "°";
+    let temperatures = [];
+    
+    const todaysTemperature = Math.round(tempData[1]);
+    temperatures.push(todaysTemperature);
+
+    cityProperties.children[2].innerHTML = todaysTemperature + "°";
     
     for(let i = 0; i < dayNamesOfWeek.children.length; i++) {
         dayNamesOfWeek.children[i].children[2].innerHTML = Math.round(tempData[i + 2]) + "°";
+        temperatures.push(Math.round(tempData[i + 2]));
     }
+
+    return temperatures;
 }
 
 function setSkyStatusAllDays(skyData) {
@@ -85,6 +102,8 @@ function setSkyStatusAllDays(skyData) {
         dayNamesOfWeek.children[i].children[1].innerHTML = skyData[i + 1];
     }
 }
+
+let myChart = null;
 
 
 
@@ -98,6 +117,9 @@ cityNameInput.addEventListener('keyup', (event) => {
         }
     }
 
+    if(myChart != null)
+        myChart.destroy();
+
     if(event.key == "Enter") {
         cityNameInput.value = capitalizeFirstLetter(cityNameInput.value);
         getCity5Days(cityNameInput.value);
@@ -108,3 +130,38 @@ submitBtn.addEventListener('click', () => {
     cityNameInput.value = capitalizeFirstLetter(cityNameInput.value);
     getCity5Days(cityNameInput.value);
 });
+
+
+
+function drawGraph(labels, data) {
+    const ctx = document.getElementById("myChart").getContext("2d");
+
+    if(myChart != null) {
+        myChart.destroy();
+    }
+
+    myChart = new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: "Temperature",
+            data: data,
+            backgroundColor: "rgba(255, 99, 132, 0.2)",
+            borderColor: "rgba(255, 99, 132, 1)",
+            borderWidth: 2,
+            fill: false,
+            tension: 0.1,
+          },
+        ],
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
+    });
+}
