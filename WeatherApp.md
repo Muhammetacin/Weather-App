@@ -29,3 +29,35 @@ For the styling and layout of the page this was the inspiration <https://www.beh
 Because of the limited time and me being not creative enough I decided to go with a simpler design in order to focus more on the technical and functional stuff.
 
 ## JavaScript functionality
+
+### getCity5Days(cityName)
+
+The function has the keyword async before it meaning it's executed asynchronous. In this function, an API string is generated with the API key and information about the weather of the submitted city is fetched. The response holds all the information in JSON format. Using all the information in there the temp and skyStatus data are put in arrays.
+
+Today's date is created to set the next day's names. Everything is set inside this function (temps, skyStatus', day names). This async function is called when user hits enter button on keyboard or clicks on submit button.
+
+### capitalizeFirstLetter(string)
+
+This function slices the first letter from input string and capitalizes it and puts it back. So it capitalizes the first letter. Purely for the look and feel of the app.
+
+### getDayAndSetAllDaysOfWeek(today)
+
+Today is an integer. 0 = sunday, 1 = monday, ... Using that number an array of whole week days' names are created. After that the correct names are put in their place.
+
+### setTempAllDays(tempData)
+
+Using the created weather information array, all temperatures of the next 5 days are put in their places in Html elements.
+
+### setSkyStatusAllDays(skyData)
+
+Using the created weather information array, all sky data of the next 5 days are put in their places in Html elements.
+
+## Events
+
+### KeyUp
+
+Every button on keyboard triggers this event. When user starts typing the temperatures and sky data information will be deleted and just a '-' is shown to reset the previous city's information. When user types something and hits enter key and if the city exists all the correct data will be shown. Otherwise, the heading on top will give an error message to let the user know that the city does not exist.
+
+### Click
+
+When the user clicks submit button and the city exists, all the correct data will be shown. Otherwise, the heading on top will give an error message to let the user know that the city does not exist.
