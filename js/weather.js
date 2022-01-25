@@ -1,9 +1,9 @@
 import { APIkey } from './config.js';
 
-let cityNameInput = document.getElementById('inputField');
+const cityNameInput = document.getElementById('inputField');
 const submitBtn = document.getElementById('submit');
 const cityProperties = document.getElementById('cityProperties');
-
+const dayNamesOfWeek = document.getElementById('daysOfWeek');
 const showCityName = document.getElementById('inputArea').children[0];
 
 async function getCity5Days(cityName) {
@@ -11,7 +11,7 @@ async function getCity5Days(cityName) {
     const response5Days = await fetch(apiString5Days).then(response => response.json());
 
     if(response5Days.city == undefined) {
-        
+        showCityName.textContent = "City not found";
         return;
     }
 
@@ -24,7 +24,6 @@ async function getCity5Days(cityName) {
         response5Days.list[39].weather[0].main,
     ];
 
-    // // Contains city name, temp day 1-2-3-4-5-6-7
     const responseTempValues = [
         response5Days.city.name,
         response5Days.list[0].main.temp,
@@ -56,27 +55,8 @@ function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-
-
-// Events
-cityNameInput.addEventListener('keyup', (event) => {
-    if(event.key == "Enter") {
-        cityNameInput.value = capitalizeFirstLetter(cityNameInput.value);
-        getCity5Days(cityNameInput.value);
-    }
-});
-
-submitBtn.addEventListener('click', () => {
-    cityNameInput.value = capitalizeFirstLetter(cityNameInput.value);
-    getCity5Days(cityNameInput.value);
-});
-
-
-
-const dayNamesOfWeek = document.getElementById('daysOfWeek');
-
 function getDayAndSetAllDaysOfWeek(today) {
-    let todayNr = today.getDay() + 2;
+    let todayNr = today.getDay();
     let daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
     while(todayNr != 0) {
@@ -105,3 +85,18 @@ function setSkyStatusAllDays(skyData) {
         dayNamesOfWeek.children[i].children[1].innerHTML = skyData[i + 1];
     }
 }
+
+
+
+// Events
+cityNameInput.addEventListener('keyup', (event) => {
+    if(event.key == "Enter") {
+        cityNameInput.value = capitalizeFirstLetter(cityNameInput.value);
+        getCity5Days(cityNameInput.value);
+    }
+});
+
+submitBtn.addEventListener('click', () => {
+    cityNameInput.value = capitalizeFirstLetter(cityNameInput.value);
+    getCity5Days(cityNameInput.value);
+});
