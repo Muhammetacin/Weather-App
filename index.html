@@ -10,44 +10,56 @@
     <link rel="stylesheet" href="css/weather.css">
 </head>
 <body>
-    <div id="inputArea" class="container d-flex flex-column text-center justify-content-center mt-5">
-        <h1>Weather App With Api</h1>
+    <div id="inputArea" class="container d-flex flex-column text-center justify-content-center mt-4">
+        <h1>City name</h1>
         <input type="text" id="inputField" class="mx-auto text-center" placeholder="Enter city name">
     </div>
-
+    
     <div class="d-flex justify-content-center">
-        <button id="submit" class="btn btn-primary fs-3 mt-4 px-4">Submit</button>
+        <button id="submit" class="btn btn-dark fs-5 mt-4 px-4">Submit</button>
     </div>
 
-    <div class="citiesInfo d-flex justify-content-center flex-row flex-wrap mt-5">
-        <div class="card mx-3 p-1" style="width: 18rem;">
-            <!-- <img src="..." class="card-img-top" alt="..."> -->
-            <div class="card-body">
-                <h5 class="card-title text-center">City 1</h5>
-                <ul class="card-text">
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                </ul>
+    <div id="cityProperties" class="citiesInfo d-flex flex-column justify-content-center text-center flex-wrap">
+        <p class="fs-2">Today</p>
+        <p class="fs-1">25°</p>
+
+        <div class="weekdays d-flex flex-row flex-wrap justify-content-center">
+            <div class="d-flex flex-column text-center">
+                <p>Mon</p>
+                <span>Cloudy</span>
+                <p>8°</p>
+            </div>
+            <div class="d-flex flex-column text-center">
+                <p>Tue</p>
+                <span>Cloudy</span>
+                <p>9°</p>
+            </div>
+            <div class="d-flex flex-column text-center">
+                <p>Wed</p>
+                <span>Sunny</span>
+                <p>15°</p>
+            </div>
+            <div class="d-flex flex-column text-center">
+                <p>Thu</p>
+                <span>Rainy</span>
+                <p>2°</p>
+            </div>
+            <div class="d-flex flex-column text-center">
+                <p>Fri</p>
+                <span>Sunny</span>
+                <p>0°</p>
+            </div>
+            <div class="d-flex flex-column text-center">
+                <p>Sat</p>
+                <span>Rainy</span>
+                <p>5°</p>
             </div>
         </div>
-
-        <div class="card m-3 p-3 visually-hidden" style="width: 18rem;">
-            <!-- <img src="..." class="card-img-top" alt="..."> -->
-            <div class="card-body">
-              <h5 class="card-title text-center">City 2</h5>
-              <ul class="card-text">
-                  <li>Temperature</li>
-                  <li>Feels like</li>
-                  <li>Temp_min</li>
-                  <li>Temp_max</li>
-                  <li>Pressure</li>
-              </ul>
-            </div>
-          </div>
     </div>
+
+    <footer class="d-flex justify-content-center p-3 text-center fixed-bottom">
+        Muhammet Cin - Weather App with openweathermap
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
