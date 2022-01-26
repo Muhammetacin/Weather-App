@@ -1,4 +1,5 @@
 import APIkey from './config.js';
+import { UNSPLASH_API_KEY } from './config.js';
 
 const cityNameInput = document.getElementById('inputField');
 const submitBtn = document.getElementById('submit');
