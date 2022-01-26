@@ -190,8 +190,6 @@ function createVisitedCitiesListItem(visitedCities) {
     visitedCities.forEach(city => {
         let listItem = document.createElement('li');
         listItem.appendChild(document.createTextNode(city));
-        console.log(listItem);
-
         list.appendChild(listItem);
     });
 }
