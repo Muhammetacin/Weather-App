@@ -1,5 +1,4 @@
-import { APIkey } from './config.js';
-// import * as Chart from './chart.js';
+import APIkey from './config.js';
 
 const submitBtn = document.getElementById('submit');
 const cityProperties = document.getElementById('cityProperties');
