@@ -62,7 +62,6 @@ async function getCity5Days(cityName) {
     visitedCities.push(responseTempValues[0]);
     visitedCities = visitedCities.filter((value, index, city) => city.indexOf(value) === index);
 
-    console.log(visitedCities);
     createVisitedCitiesListItem(visitedCities);
 }
 
