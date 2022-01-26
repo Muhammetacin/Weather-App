@@ -38,10 +38,10 @@ body {
     margin: 0.25rem 0.5rem;
     padding: 0.5rem 0.5rem;
   }
-  #visitedCities {
+  #visitedCities1, #visitedCities2 {
     margin-top: 5rem;
   }
-  #visitedCities ul {
+  #visitedCities1 ul, #visitedCities2 ul {
     list-style-type: none;
   }
 }
