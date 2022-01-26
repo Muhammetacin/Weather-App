@@ -1,4 +1,4 @@
-import * from './config.js';
+import APIkey from './config.js';
 
 const cityNameInput = document.getElementById('inputField');
 const submitBtn = document.getElementById('submit');
