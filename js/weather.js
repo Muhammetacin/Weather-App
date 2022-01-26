@@ -42,8 +42,6 @@ async function getCity5Days(cityName) {
     // Set all the weekdays in app correctly according to today
     getDayAndSetAllDaysOfWeek(todaysDate);
 
-    console.log(response5Days);
-
     // Show city name on top
     showCityName.textContent = responseTempValues[0];
 
