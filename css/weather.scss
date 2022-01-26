@@ -45,6 +45,14 @@ body {
             padding: 0.5rem 0.5rem;
         }
     }
+
+    #visitedCities {
+        margin-top: 5rem;
+
+        ul {
+            list-style-type: none;
+        }
+    }
 }
 
 @media screen and (min-width: 576px) {

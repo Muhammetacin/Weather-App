@@ -7,6 +7,8 @@ const cityProperties = document.getElementById('cityProperties');
 const dayNamesOfWeek = document.getElementById('daysOfWeek');
 const showCityName = document.getElementById('inputArea').children[0];
 
+let visitedCities = [];
+
 async function getCity5Days(cityName) {
     const apiString5Days = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&cnt=40&units=metric&appid=" + APIkey;
     const response5Days = await fetch(apiString5Days).then(response => response.json());
@@ -56,6 +58,12 @@ async function getCity5Days(cityName) {
     dayLabels.pop();
 
     drawGraph(dayLabels, temperatures);
+
+    visitedCities.push(responseTempValues[0]);
+    visitedCities = visitedCities.filter((value, index, city) => city.indexOf(value) === index);
+
+    console.log(visitedCities);
+    createVisitedCitiesListItem(visitedCities);
 }
 
 function capitalizeFirstLetter(string) {
@@ -163,5 +171,27 @@ function drawGraph(labels, data) {
           },
         },
       },
+    });
+}
+
+
+
+function createVisitedCitiesListItem(visitedCities) {
+    let list = document.getElementById('visitedCities').children[1];
+    
+    // Remove all list items
+    let child = list.lastElementChild;  
+    while(child) { 
+        list.removeChild(child); 
+        child = list.lastElementChild; 
+    }
+
+    // Update list with unique cities
+    visitedCities.forEach(city => {
+        let listItem = document.createElement('li');
+        listItem.appendChild(document.createTextNode(city));
+        console.log(listItem);
+
+        list.appendChild(listItem);
     });
 }
