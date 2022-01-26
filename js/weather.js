@@ -1,5 +1,4 @@
 import { APIkey } from './config.js';
-// import * as Chart from './chart.js';
 
 const cityNameInput = document.getElementById('inputField');
 const submitBtn = document.getElementById('submit');
