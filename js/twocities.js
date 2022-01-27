@@ -1,4 +1,5 @@
 import APIkey from './config.js';
+import { UNSPLASH_API_KEY } from './config.js';
 
 const submitBtn = document.getElementById('submit');
 const cityProperties = document.getElementById('cityProperties');
@@ -8,6 +9,8 @@ const cityName1Input = document.getElementById('inputField1');
 const cityName2Input = document.getElementById('inputField2');
 const showCity1Name = document.getElementById('inputArea').children[0].children[0];
 const showCity2Name = document.getElementById('inputArea').children[2].children[0];
+const cityImage1 = document.getElementById('cityImg1');
+const cityImage2 = document.getElementById('cityImg2');
 
 let visitedCities1 = [];
 let visitedCities2 = [];
@@ -253,6 +256,9 @@ cityName1Input.addEventListener('keyup', (event) => {
         }
     }
 
+    cityImage1.src = "";
+    cityImage2.src = "";
+
     if(myChart != null)
         myChart.destroy();
 
@@ -260,6 +266,7 @@ cityName1Input.addEventListener('keyup', (event) => {
         cityName1Input.value = capitalizeFirstLetter(cityName1Input.value);
         cityName2Input.value = capitalizeFirstLetter(cityName2Input.value);
         getCity5Days(cityName1Input.value, cityName2Input.value);
+        getCityImage(cityName1Input.value, cityName2Input.value);
     }
 });
 
@@ -275,6 +282,9 @@ cityName2Input.addEventListener('keyup', (event) => {
         }
     }
 
+    cityImage1.src = "";
+    cityImage2.src = "";
+
     if(myChart != null)
         myChart.destroy();
 
@@ -282,6 +292,7 @@ cityName2Input.addEventListener('keyup', (event) => {
         cityName1Input.value = capitalizeFirstLetter(cityName1Input.value);
         cityName2Input.value = capitalizeFirstLetter(cityName2Input.value);
         getCity5Days(cityName1Input.value, cityName2Input.value);
+        getCityImage(cityName1Input.value, cityName2Input.value);
     }
 });
 
@@ -289,6 +300,7 @@ submitBtn.addEventListener('click', () => {
     cityName1Input.value = capitalizeFirstLetter(cityName1Input.value);
     cityName2Input.value = capitalizeFirstLetter(cityName2Input.value);
     getCity5Days(cityName1Input.value, cityName2Input.value);
+    getCityImage(cityName1Input.value, cityName2Input.value);
 });
 
 
@@ -370,4 +382,16 @@ function createVisitedCitiesListItem2(visitedCities2) {
         listItem.appendChild(document.createTextNode(city));
         list2.appendChild(listItem);
     });
+}
+
+async function getCityImage(cityName1, cityName2) {
+    const url1 = "https://api.unsplash.com/search/photos?query=" + cityName1 + "&client_id=" + UNSPLASH_API_KEY;
+    const getImage1 = await fetch(url1).then(response => response.json());
+    const url2 = "https://api.unsplash.com/search/photos?query=" + cityName2 + "&client_id=" + UNSPLASH_API_KEY;
+    const getImage2 = await fetch(url2).then(response => response.json());
+
+    console.log(getImage1.results);
+    
+    cityImage1.src = getImage1.results[0].urls.regular;
+    cityImage2.src = getImage2.results[0].urls.regular;
 }

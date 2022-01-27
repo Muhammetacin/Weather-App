@@ -47,7 +47,7 @@ body {
     max-height: 100%;
   }
   #visitedCities, #visitedCities1, #visitedCities2 {
-    margin-top: 5rem;
+    margin-top: 3rem;
   }
   #visitedCities ul, #visitedCities1 ul, #visitedCities2 ul {
     list-style-type: none;
