@@ -201,5 +201,6 @@ async function getCityImage(cityName) {
     const getImage = await fetch(url).then(response => response.json());
 
     console.log(getImage);
+    
     cityImage.src = getImage.results[0].urls.regular;
 }
