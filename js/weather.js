@@ -200,5 +200,6 @@ async function getCityImage(cityName) {
     const url = "https://api.unsplash.com/search/photos?query=" + cityName + "&client_id=" + UNSPLASH_API_KEY;
     const getImage = await fetch(url).then(response => response.json());
 
+    console.log(getImage);
     cityImage.src = getImage.results[0].urls.regular;
 }
