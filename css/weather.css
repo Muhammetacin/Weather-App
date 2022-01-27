@@ -27,9 +27,6 @@ body {
     outline: none;
     border-bottom: 2px solid;
   }
-  #cityProperties {
-    margin-top: 2rem;
-  }
   #cityProperties .weekdays {
     margin: 3rem auto;
     font-size: 1rem;
