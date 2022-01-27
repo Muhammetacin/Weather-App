@@ -6,6 +6,7 @@ const submitBtn = document.getElementById('submit');
 const cityProperties = document.getElementById('cityProperties');
 const dayNamesOfWeek = document.getElementById('daysOfWeek');
 const showCityName = document.getElementById('inputArea').children[0];
+const cityImage = document.getElementById('cityImg');
 
 let visitedCities = [];
 
@@ -122,18 +123,22 @@ cityNameInput.addEventListener('keyup', (event) => {
         }
     }
 
+    cityImage.src = "";
+
     if(myChart != null)
         myChart.destroy();
 
     if(event.key == "Enter") {
         cityNameInput.value = capitalizeFirstLetter(cityNameInput.value);
         getCity5Days(cityNameInput.value);
+        getCityImage(cityNameInput.value);
     }
 });
 
 submitBtn.addEventListener('click', () => {
     cityNameInput.value = capitalizeFirstLetter(cityNameInput.value);
     getCity5Days(cityNameInput.value);
+    getCityImage(cityNameInput.value);
 });
 
 
@@ -189,4 +194,11 @@ function createVisitedCitiesListItem(visitedCities) {
         listItem.appendChild(document.createTextNode(city));
         list.appendChild(listItem);
     });
+}
+
+async function getCityImage(cityName) {
+    const url = "https://api.unsplash.com/search/photos?query=" + cityName + "&client_id=" + UNSPLASH_API_KEY;
+    const getImage = await fetch(url).then(response => response.json());
+
+    cityImage.src = getImage.results[0].urls.regular;
 }
