@@ -141,7 +141,10 @@ submitBtn.addEventListener('click', () => {
     getCityImage(cityNameInput.value);
 });
 
-
+// Dummy data to show on page load
+const labels = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+const data = [10, 5, 7, 8, 3, 11];
+drawGraph(labels, data);
 
 function drawGraph(labels, data) {
     const ctx = document.getElementById("myChart").getContext("2d");
@@ -199,8 +202,6 @@ function createVisitedCitiesListItem(visitedCities) {
 async function getCityImage(cityName) {
     const url = "https://api.unsplash.com/search/photos?query=" + cityName + "&client_id=" + UNSPLASH_API_KEY;
     const getImage = await fetch(url).then(response => response.json());
-
-    console.log(getImage);
     
     cityImage.src = getImage.results[0].urls.regular;
 }
