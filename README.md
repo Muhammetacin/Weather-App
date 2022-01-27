@@ -61,3 +61,7 @@ Every button on keyboard triggers this event. When user starts typing the temper
 ### Click
 
 When the user clicks submit button and the city exists, all the correct data will be shown. Otherwise, the heading on top will give an error message to let the user know that the city does not exist.
+
+# Picture of the page:
+
+<img src="./example.png" width=600>
