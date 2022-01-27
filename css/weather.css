@@ -40,7 +40,10 @@ body {
   }
   .cityImage {
     width: 1080px;
-    height: auto;
+    height: 480px;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
   }
   .cityImage img {
     max-width: 100%;

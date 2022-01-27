@@ -48,7 +48,8 @@ body {
 
     .cityImage {
         width: 1080px;
-        height: auto;
+        height: 480px;
+        align-items: flex-start;
         
         img {
             max-width: 100%;
