@@ -90,6 +90,35 @@ const createVisitedCitiesListItem = (visitedCities) => {
     });
 };
 
+const setCityProperties = (todaysDate, responseCityName, responseTemperatureValues, weatherDescription) => {
+    // Set all the weekdays in app correctly according to day
+    setDayNames(todaysDate);
+
+    // Show city name on top
+    showCityName.textContent = responseCityName;
+
+    // Show temperature for all days
+    setTemperatureOfDays(responseTemperatureValues);
+
+    // Show sky description for all days
+    setWeatherDescriptionOfDays(weatherDescription);
+};
+
+const createGraphWithValues = (responseTemperatureValues, todaysDate) => {
+    const temperatures = setTemperatureOfDays(responseTemperatureValues);
+    const dayLabels = setDayNames(todaysDate);
+    dayLabels.pop();
+
+    drawGraph(dayLabels, temperatures);
+};
+
+const showVisitedCities = (responseCityName) => {
+    visitedCities.push(responseCityName);
+    visitedCities = visitedCities.filter((value, index, city) => city.indexOf(value) === index);
+
+    createVisitedCitiesListItem(visitedCities);
+};
+
 const fetchCityTemperature5Days = async (cityName) => {
     const apiString5Days = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&cnt=40&units=metric&appid=" + APIkey;
     const response5Days = await fetch(apiString5Days).then(response => response.json());
@@ -120,30 +149,13 @@ const fetchCityTemperature5Days = async (cityName) => {
     ];
 
     // Get todays day
-    let todaysDate = new Date().getDay();
+    const todaysDate = new Date().getDay();
 
-    // Set all the weekdays in app correctly according to day
-    setDayNames(todaysDate);
+    setCityProperties(todaysDate, responseCityName, responseTemperatureValues, weatherDescription);
 
-    // Show city name on top
-    showCityName.textContent = responseCityName;
+    createGraphWithValues(responseTemperatureValues, todaysDate);
 
-    // Show temperature for all days
-    setTemperatureOfDays(responseTemperatureValues);
-
-    // Show sky description for all days
-    setWeatherDescriptionOfDays(weatherDescription);
-
-    const temperatures = setTemperatureOfDays(responseTemperatureValues);
-    const dayLabels = setDayNames(todaysDate);
-    dayLabels.pop();
-
-    drawGraph(dayLabels, temperatures);
-
-    visitedCities.push(responseCityName);
-    visitedCities = visitedCities.filter((value, index, city) => city.indexOf(value) === index);
-
-    createVisitedCitiesListItem(visitedCities);
+    showVisitedCities(responseCityName);
 };
 
 const fetchCityImage = async (cityName) => {
