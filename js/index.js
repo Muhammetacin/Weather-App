@@ -1,6 +1,6 @@
 import APIkey from './config.js';
 import { UNSPLASH_API_KEY } from './config.js';
-import { myChart ,drawGraph } from './graph.js';
+import { myChart, drawGraph } from './graph.js';
 import { showVisitedCities } from './visitedCitiesFunctions.js';
 
 const cityNameInput = document.getElementById('inputField');
