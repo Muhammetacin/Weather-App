@@ -90,7 +90,7 @@ const createVisitedCitiesListItem = (visitedCities) => {
     });
 };
 
-const getCity5Days = async (cityName) => {
+const fetchCityTemperature5Days = async (cityName) => {
     const apiString5Days = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&cnt=40&units=metric&appid=" + APIkey;
     const response5Days = await fetch(apiString5Days).then(response => response.json());
 
@@ -153,6 +153,11 @@ const fetchCityImage = async (cityName) => {
     cityImage.src = getImage.results[0].urls.regular;
 };
 
+const executeInput = () => {
+    let inputValue = capitalizeFirstLetter(cityNameInput.value);
+    fetchCityTemperature5Days(inputValue);
+    fetchCityImage(inputValue);
+};
 
 
 // Events
@@ -163,16 +168,10 @@ cityNameInput.addEventListener('keyup', (event) => {
     myChart.destroy();
     
     if(event.key == "Enter") {
-        let inputValue = cityNameInput.value;
-        inputValue = capitalizeFirstLetter(inputValue);
-        getCity5Days(inputValue);
-        fetchCityImage(inputValue);
+        executeInput();
     }
 });
 
 submitBtn.addEventListener('click', () => {
-    let inputValue = cityNameInput.value;
-    inputValue = capitalizeFirstLetter(inputValue);
-    getCity5Days(inputValue);
-    fetchCityImage(inputValue);
+    executeInput();
 });
