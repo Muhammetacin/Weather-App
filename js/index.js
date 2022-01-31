@@ -172,6 +172,7 @@ const executeInput = () => {
 };
 
 
+
 // Events
 cityNameInput.addEventListener('keyup', (event) => {
     resetCityValues();
