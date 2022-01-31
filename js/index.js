@@ -1,6 +1,7 @@
 import APIkey from './config.js';
 import { UNSPLASH_API_KEY } from './config.js';
 import { myChart ,drawGraph } from './graph.js';
+import { showVisitedCities } from './visitedCitiesFunctions.js';
 
 const cityNameInput = document.getElementById('inputField');
 const submitBtn = document.getElementById('submit');
@@ -9,8 +10,8 @@ const dayNamesOfWeek = document.getElementById('daysOfWeek');
 const showCityName = document.getElementById('inputArea').children[0];
 const cityImage = document.getElementById('cityImg');
 
-// Global because it'll keep the city names as long as the app is running
-let visitedCities = [];
+// Get todays day
+const todaysDate = new Date().getDay();
 
 const capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -71,26 +72,7 @@ const setWeatherDescriptionOfDays = (weatherDescription) => {
     }
 };
 
-const createVisitedCitiesListItem = (visitedCities) => {
-    const list = document.getElementById('visitedCities').children[1];
-    
-    // Remove all list items
-    let child = list.lastElementChild;
-
-    while(child) { 
-        list.removeChild(child); 
-        child = list.lastElementChild; 
-    }
-
-    // Update list with unique cities
-    visitedCities.forEach(city => {
-        let listItem = document.createElement('li');
-        listItem.appendChild(document.createTextNode(city));
-        list.appendChild(listItem);
-    });
-};
-
-const setCityProperties = (todaysDate, responseCityName, responseTemperatureValues, weatherDescription) => {
+const setCityProperties = (responseCityName, responseTemperatureValues, weatherDescription) => {
     // Set all the weekdays in app correctly according to day
     setDayNames(todaysDate);
 
@@ -104,19 +86,12 @@ const setCityProperties = (todaysDate, responseCityName, responseTemperatureValu
     setWeatherDescriptionOfDays(weatherDescription);
 };
 
-const createGraphWithValues = (responseTemperatureValues, todaysDate) => {
+const createGraphWithValues = (responseTemperatureValues) => {
     const temperatures = setTemperatureOfDays(responseTemperatureValues);
     const dayLabels = setDayNames(todaysDate);
     dayLabels.pop();
 
     drawGraph(dayLabels, temperatures);
-};
-
-const showVisitedCities = (responseCityName) => {
-    visitedCities.push(responseCityName);
-    visitedCities = visitedCities.filter((value, index, city) => city.indexOf(value) === index);
-
-    createVisitedCitiesListItem(visitedCities);
 };
 
 const fetchCityTemperature5Days = async (cityName) => {
@@ -148,14 +123,7 @@ const fetchCityTemperature5Days = async (cityName) => {
         response5Days.list[39].main.temp,
     ];
 
-    // Get todays day
-    const todaysDate = new Date().getDay();
-
-    setCityProperties(todaysDate, responseCityName, responseTemperatureValues, weatherDescription);
-
-    createGraphWithValues(responseTemperatureValues, todaysDate);
-
-    showVisitedCities(responseCityName);
+    return { responseCityName, weatherDescription, responseTemperatureValues };
 };
 
 const fetchCityImage = async (cityName) => {
@@ -167,8 +135,12 @@ const fetchCityImage = async (cityName) => {
 
 const executeInput = () => {
     let inputValue = capitalizeFirstLetter(cityNameInput.value);
-    fetchCityTemperature5Days(inputValue);
+    let fetchCity = fetchCityTemperature5Days(inputValue);
     fetchCityImage(inputValue);
+
+    fetchCity.then(cityObject => setCityProperties(cityObject.responseCityName, cityObject.responseTemperatureValues, cityObject.weatherDescription));
+    fetchCity.then(cityObject => createGraphWithValues(cityObject.responseTemperatureValues));
+    fetchCity.then(cityObject => showVisitedCities(cityObject.responseCityName));
 };
 
 
