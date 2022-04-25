@@ -1,5 +1,7 @@
 # Documentation of the code
 
+Link to the demo: https://cins-weatherapp.netlify.app/
+
 ## Html file structure
 
 There are 4 blocks in the body of the page. Input, submit, weather info and footer.
